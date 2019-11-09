@@ -22,8 +22,8 @@ app = Flask(__name__)
 
 #### pymongo
 app.config['MONGO_DBNAME'] = 'foodb'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/foodb'
-#app.config['MONGO_URI'] = 'mongodb+srv://pautib:Mt5113sal@ads-h9hqo.mongodb.net/test?retryWrites=true&w=majority'
+#app.config['MONGO_URI'] = 'mongodb://localhost:27017/foodb'
+app.config['MONGO_URI'] = 'mongodb+srv://pautib:Mt5113sal@ads-h9hqo.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 ####
 app.config['SECRET_KEY'] = 'enydM2ANhdcoKwdVa0jWvEsbPFuQpMjf' # Create your own.
