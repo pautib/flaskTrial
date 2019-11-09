@@ -22,10 +22,12 @@ app = Flask(__name__)
 
 #### pymongo
 app.config['MONGO_DBNAME'] = 'foodb'
-#app.config['MONGO_URI'] = 'mongodb://localhost:27017/foodb'
-app.config['MONGO_URI'] = 'mongodb+srv://pautib:Mt5113sal@ads-h9hqo.mongodb.net/test?retryWrites=true&w=majority'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/foodb'
+#app.config['MONGO_URI'] = 'mongodb+srv://pautib:Mt5113sal@ads-h9hqo.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 ####
+app.config['SECRET_KEY'] = 'enydM2ANhdcoKwdVa0jWvEsbPFuQpMjf' # Create your own.
+app.config['SESSION_PROTECTION'] = 'strong'
 
 @app.route('/')
 def index():
@@ -38,26 +40,10 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#@app.route('/products/')
-#def products_list():
-#    return 'Listing of all products we have.'
-
-#@app.route('/products/<int:product_id>/')
-#def product_detail(product_id):
-#  return 'Detail of product #{}.'.format(product_id)
-
 # @app.route('/products/<int:product_id>/edit/', methods=['GET', 'POST'])
 # @login_required
 # def product_edit(product_id):
 #   return 'Form to edit product #{}.'.format(product_id)
-
-# @app.route( '/products/create/', methods=['GET', 'POST'])
-# def product():
-#   return 'Form to create a new product.'
-
-# @app.route('/products/<product_id>/delete/', methods=['DELETE'])
-# def product_delete(product_id):
-#     raise NotImplementedError('DELETE')
 
 @app.route('/string/')
 def return_string():
@@ -156,10 +142,6 @@ def error_not_found(error):
   return(render_template('error/not_found.html'), 404)
 
 
-app.config['SECRET_KEY'] = 'enydM2ANhdcoKwdVa0jWvEsbPFuQpMjf' # Create your own.
-app.config['SESSION_PROTECTION'] = 'strong'
-
-
 # Use Flask-Login to track current user in Flask's session.
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -176,7 +158,7 @@ def load_user(user_id):
 
 ## Login view
 
-@app.route('/login/', methods=['GET', 'POST'])
+@app.route('/login/', methods = ['GET', 'POST'])
 def login():
   if current_user.is_authenticated:
     return redirect(url_for('products_list'))
@@ -199,4 +181,3 @@ def login():
 def logout():
   logout_user()
   return redirect(url_for('products_list'))
-
