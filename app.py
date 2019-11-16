@@ -33,8 +33,6 @@ if __name__ == '__main__':
 def index():
   return redirect(url_for('products_list'))
 
-
-
 @app.route('/string/')
 def return_string():
     dump = dump_request_detail(request)
@@ -111,33 +109,13 @@ def products_list():
   products = mongo.db.products.find()[:]
   return render_template('product/index.html', products=products)
 
-# @app.route('/products/<int:product_id>/edit/', methods=['GET', 'POST'])
-# @login_required
-# def product_edit(product_id):
-#   product = mongo.db.products.find_one({ "_id": ObjectId(product_id) })
-#   print(product)
-#   form = ProductForm(request.form)
-#
-#   if request.method == 'GET':
-#     ProductForm.name = product['name']
-#     ProductForm.description = product['description']
-#     ProductForm.price = product['price']
-#     return render_template('product/edit.html', form=form)
-#   else:
-#     request.method == 'POST' and form.validate():
-
-
-  #return 'Form to edit product #{}.'.format(product_id)
-
 @app.route('/products/<product_id>/edit/', methods=['GET', 'POST'])
 @login_required
 def product_edit(product_id):
     form = ProductForm(request.form)
     product = mongo.db.products.find_one({ "_id": ObjectId(product_id) })
     if request.method == 'POST' and form.validate():
-        #product['name'] = form.name.data
-        #product['description'] = form.description.data
-        #product['price'] = form.price.data
+
         mongo.db.products.update_one({'name': product['name']},
                                      {"$set":{"name": form.name.data,
                                               "description":form.description.data,
