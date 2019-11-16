@@ -3,15 +3,15 @@ from flask_pymongo import PyMongo
 
 from flask import abort, jsonify, redirect, render_template
 from flask import request, url_for
-from .forms import ProductForm
+from forms import ProductForm
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 
 from flask_login import LoginManager, current_user
 from flask_login import login_user, logout_user
 
-from .forms import LoginForm
-from .model import User
+from forms import LoginForm
+from model import User
 
 from flask_login import login_required
 import json
@@ -27,12 +27,14 @@ mongo = PyMongo(app)
 app.config['SECRET_KEY'] = 'enydM2ANhdcoKwdVa0jWvEsbPFuQpMjf' # Create your own.
 app.config['SESSION_PROTECTION'] = 'strong'
 
+if __name__ == '__main__':
+    app.run(debug=True)
+
 @app.route('/')
 def index():
   return redirect(url_for('products_list'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
 
 @app.route('/string/')
 def return_string():
