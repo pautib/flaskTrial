@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 
 from flask import abort, jsonify, redirect, render_template
 from flask import request, url_for
-from forms import ProductForm
+from .forms import ProductForm
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 
@@ -14,7 +14,6 @@ from .forms import LoginForm
 from .model import User
 
 from flask_login import login_required
-import json
 
 app = Flask(__name__)
 
