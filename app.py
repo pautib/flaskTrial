@@ -175,8 +175,8 @@ def login():
   form = LoginForm(request.form)
   error = None
   if request.method == 'POST' and form.validate():
-    username = form.username.data.lower().strip()
-    password = form.password.data.lower().strip()
+    #username = form.username.data.lower().strip()
+    #password = form.password.data.lower().strip()
     user = mongo.db.users.find_one({"username": form.username.data})
     if user and User.validate_login(user['password'], form.password.data):
       user_obj = User(user['username'])
