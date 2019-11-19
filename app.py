@@ -161,10 +161,11 @@ login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(user_id):
   """Flask-Login hook to load a User instance from ID."""
-  u = mongo.db.users.find_one({"username": user_id})
+  #u = mongo.db.users.find_one({"username": user_id})
+  u = 'pautib'
   if not u:
         return None
-  return User(u['username'])
+  return User(u)
 
 ## Login view
 
@@ -175,11 +176,11 @@ def login():
   form = LoginForm(request.form)
   error = None
   if request.method == 'POST' and form.validate():
-    #username = form.username.data.lower().strip()
-    #password = form.password.data.lower().strip()
-    user = mongo.db.users.find_one({"username": form.username.data})
-    if user and User.validate_login(user['password'], form.password.data):
-      user_obj = User(user['username'])
+    username = form.username.data.lower().strip()
+    password = form.password.data.lower().strip()
+    #user = mongo.db.users.find_one({"username": form.username.data})
+    if username == 'pautib' and password == 'pautib':
+      user_obj = User(username)
       login_user(user_obj)
       return redirect(url_for('products_list'))
     else:
